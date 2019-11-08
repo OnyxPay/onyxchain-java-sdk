@@ -118,9 +118,7 @@ public class OngX {
 
     public String unboundOng(String address) throws Exception {
         if (address != null && !address.equals("")) {
-            String unboundOngStr = sdk.getSideChainConnectMgr().getAllowance("ong", Address.parse("0000000000000000000000000000000000000001").toBase58(), address);
-            long unboundOng = Long.parseLong(unboundOngStr);
-            return unboundOngStr;
+            return sdk.getSideChainConnectMgr().getAllowance("oxg", Address.parse("0000000000000000000000000000000000000001").toBase58(), address);
         } else {
             throw new SDKException(ErrorCode.OtherError("address should not be null"));
         }

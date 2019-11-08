@@ -626,9 +626,9 @@ public class OntSdk {
                             map.put("amount", Helper.BigIntFromNeoBytes(Helper.hexToBytes(codeHexStr.substring(104, 104 + code[51] * 2))));
                         }
                         if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().ont().getContractAddress())) {
-                            map.put("asset", "ont");
+                            map.put("asset", "onyx");
                         } else if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().ong().getContractAddress())) {
-                            map.put("asset", "ong");
+                            map.put("asset", "oxg");
                             map.put("amount", ((BigInteger) map.get("amount")).doubleValue() / 1000000000L);
                         }
                     } else if (codeHexStr.substring(codeHexStr.length() - 92 - 24, codeHexStr.length() - 92).equals(Helper.toHexString("transferFrom".getBytes()))) {
@@ -642,9 +642,9 @@ public class OntSdk {
                             map.put("amount", Helper.BigIntFromNeoBytes(Helper.hexToBytes(codeHexStr.substring(104, 104 + code[51] * 2))));
                         }
                         if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().ont().getContractAddress())) {
-                            map.put("asset", "ont");
+                            map.put("asset", "onyx");
                         } else if (codeHexStr.substring(codeHexStr.length() - 50 - 40, codeHexStr.length() - 50).equals(this.nativevm().ong().getContractAddress())) {
-                            map.put("asset", "ong");
+                            map.put("asset", "oxg");
                             map.put("amount", ((BigInteger) map.get("amount")).doubleValue() / 1000000000L);
                         }
                     }

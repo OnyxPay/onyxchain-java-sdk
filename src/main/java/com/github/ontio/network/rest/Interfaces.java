@@ -233,6 +233,7 @@ class Interfaces {
             throw new RestfulException(ErrorCode.ConnectUrlErr + url, e);
         }
     }
+
     public String getVersion() throws RestfulException {
         Map<String, String> params = new HashMap<String, String>();
         try {
