@@ -152,7 +152,7 @@ public class Helper {
             if (object instanceof JSONArray) {
                 balanceArray = parseNestedBalanceArray(object);
             } else if (object instanceof String){
-                balanceArray.add(getHexIndexSymbol(currentBalanceIndex));
+                balanceArray.add(String.format("%02x", currentBalanceIndex));
                 balanceArray.add(getBalanceFromHex((String) object));
             } else {
                 continue;
