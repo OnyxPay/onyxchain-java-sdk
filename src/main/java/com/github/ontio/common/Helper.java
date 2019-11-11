@@ -21,6 +21,7 @@ package com.github.ontio.common;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.github.ontio.sdk.exception.SDKException;
 
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -124,11 +125,6 @@ public class Helper {
         return BigInteger.ZERO.toString();
     }
 
-    private static String getHexIndexSymbol(int index) {
-        String symbol = String.format("%02d", index);
-        return Helper.toHexString(symbol.getBytes());
-    }
-
     private static List<String> parseNestedBalanceArray(Object object) {
         List<String> balanceArray = new ArrayList<String>();
 
@@ -142,7 +138,7 @@ public class Helper {
         return balanceArray;
     }
 
-    public static String parseBalancesArray(JSONArray jsonArray) {
+    public static String parseBalancesArray(JSONArray jsonArray) throws SDKException {
         List<List<String>> balancesArray = new ArrayList<List<String>>();
         int currentBalanceIndex = 0;
 
@@ -155,7 +151,8 @@ public class Helper {
                 balanceArray.add(String.format("%02x", currentBalanceIndex));
                 balanceArray.add(getBalanceFromHex((String) object));
             } else {
-                continue;
+                String message = "An unsupported object type: " + object.getClass().getSimpleName();
+                throw new SDKException(ErrorCode.BalancesArrayError(message));
             }
 
             balancesArray.add(balanceArray);

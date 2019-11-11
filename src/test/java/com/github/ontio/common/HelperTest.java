@@ -3,6 +3,7 @@ package com.github.ontio.common;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.github.ontio.sdk.exception.SDKException;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class HelperTest {
     @Test
-    public void parseBalancesArrayWithNestedArrayAndEmptyBalances() {
+    public void parseBalancesArrayWithNestedArrayAndEmptyBalances() throws SDKException {
         String jsonString = "[[\"6f555344\", \"\"], [\"6f4b4553\", \"\"], [\"6f425344\", \"\"]]";
         JSONArray jsonArray = JSONObject.parseArray(jsonString);
 
@@ -31,7 +32,7 @@ public class HelperTest {
     }
 
     @Test
-    public void parseBalancesArrayWithNestedArrayAndNonZeroBalances() {
+    public void parseBalancesArrayWithNestedArrayAndNonZeroBalances() throws SDKException {
         String firstBalance = getHexBalance("111");
         String secondBalance = getHexBalance("222");
         String thirdBalance = getHexBalance("333");
@@ -54,7 +55,7 @@ public class HelperTest {
     }
 
     @Test
-    public void parseBalancesArrayEmptyBalances() {
+    public void parseBalancesArrayEmptyBalances() throws SDKException {
         String jsonString = "[\"\", \"\", \"\"]";
         JSONArray jsonArray = JSONObject.parseArray(jsonString);
 
@@ -67,7 +68,7 @@ public class HelperTest {
     }
 
     @Test
-    public void parseBalancesArrayEmptyArray() {
+    public void parseBalancesArrayEmptyArray() throws SDKException {
         JSONArray jsonArray = JSONObject.parseArray("[]");
         JSONArray expected = JSONObject.parseArray("[]");
 
@@ -77,19 +78,16 @@ public class HelperTest {
         assertEquals(expected, result);
     }
 
-    @Test
-    public void parseBalancesArrayWithCorruptedData() {
+    @Test(expected = SDKException.class)
+    public void parseBalancesArrayWithCorruptedData() throws SDKException {
         JSONArray jsonArray = JSONObject.parseArray("[1, 2, 3]");
-        JSONArray expected = JSONObject.parseArray("[]");
 
         String resultJsonString = Helper.parseBalancesArray(jsonArray);
-        JSONArray result = JSONObject.parseArray(resultJsonString);
-
-        assertEquals(expected, result);
+        JSONObject.parseArray(resultJsonString);
     }
 
     @Test
-    public void parseBalancesArrayOnyxchainAssets() {
+    public void parseBalancesArrayOnyxchainAssets() throws SDKException {
         // For AZPrhqNeRzC6UsDf8vfZueSTYAiB5W71gz
         final String response = "[[\"6f555344\",\"80d491a717\"],[\"6f4b4553\",\"ffdbff0514\"],[\"6f425344\",\"\"]," +
                                  "[\"6f425a44\",\"\"],[\"6f434846\",\"\"],[\"6f434c46\",\"\"],[\"6f424946\",\"\"]," +
@@ -156,7 +154,7 @@ public class HelperTest {
     }
 
     @Test
-    public void parseBalancesArrayOntologyPumpkin() {
+    public void parseBalancesArrayOntologyPumpkin() throws SDKException {
         // For AMQgcrvnpPWnbAjps3Aj1bTfXSsYEYjXUg
         final String response = "[\"09\",\"\",\"0b\",\"06\",\"0a\",\"0a\",\"08\",\"\"]";
         final String expected = "[[\"00\",\"9\"],[\"01\",\"0\"],[\"02\",\"11\"],[\"03\",\"6\"],[\"04\",\"10\"]," +
