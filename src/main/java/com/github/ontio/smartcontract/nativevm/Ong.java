@@ -396,10 +396,11 @@ public class Ong {
      * @throws Exception
      */
     public String unboundOng(String address) throws Exception {
-        if(address==null||address.equals("")){
+        if(address == null || address.equals("")) {
             throw new SDKException(ErrorCode.ParamErr("address should not be null"));
         }
-        return sdk.getConnect().getAllowance("oxg", Address.parse(ontContract).toBase58(), address);
+
+        return sdk.getConnect().getUnBoundOxg(address);
     }
 
     /**

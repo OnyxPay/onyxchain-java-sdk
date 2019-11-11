@@ -289,6 +289,16 @@ public class RestClient extends AbstractConnector {
     }
 
     @Override
+    public String getUnBoundOxg(String address) throws ConnectorException, IOException {
+        String rs = api.getUnBoundOxg(address);
+        Result rr = JSON.parseObject(rs, Result.class);
+        if (rr.Error == 0) {
+            return (String)rr.Result;
+        }
+        throw new RestfulException(to(rr));
+    }
+
+    @Override
     public int getNetworkId() throws ConnectorException, IOException {
         String rs = api.getNetworkId();
         Result rr = JSON.parseObject(rs, Result.class);

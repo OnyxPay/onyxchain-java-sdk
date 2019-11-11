@@ -250,6 +250,14 @@ class Interfaces {
             throw new RestfulException(ErrorCode.ConnectUrlErr + url, e);
         }
     }
+    public String getUnBoundOxg(String address) throws RestfulException {
+        Map<String, String> params = new HashMap<String, String>();
+        try {
+            return http.get(url + UrlConsts.Url_get_unbound_oxg + "/" + address, params);
+        } catch (Exception e) {
+            throw new RestfulException(ErrorCode.ConnectUrlErr + url, e);
+        }
+    }
     public String getNetworkId() throws RestfulException {
         Map<String, String> params = new HashMap<String, String>();
         try {

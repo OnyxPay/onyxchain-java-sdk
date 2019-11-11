@@ -23,7 +23,6 @@ import com.alibaba.fastjson.JSON;
 import com.github.ontio.common.ErrorCode;
 import com.github.ontio.network.exception.RpcException;
 import com.github.ontio.network.rpc.Interfaces;
-import com.github.ontio.network.rpc.RpcClient;
 
 import java.util.HashMap;
 import java.util.Map;

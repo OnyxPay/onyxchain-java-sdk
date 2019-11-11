@@ -53,6 +53,7 @@ public interface IConnector {
 	Object getMemPoolTxState(String hash) throws ConnectorException, IOException;
 	String getVersion() throws ConnectorException, IOException;
 	String getGrantOng(String address) throws ConnectorException, IOException;
+	String getUnBoundOxg(String address) throws ConnectorException, IOException;
 	int getNetworkId() throws ConnectorException, IOException;
 	String getSideChainData(String sideChainID) throws ConnectorException, IOException;
 }
