@@ -254,7 +254,17 @@ public class RpcClient extends AbstractConnector {
 
     @Override
     public String getGrantOng(String address) throws ConnectorException, IOException {
-        Object result = rpc.call("getgrantong",address);
+        Object result = rpc.call("getgrantong", address);
+        try {
+            return (String) result;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String getUnBoundOxg(String address) throws ConnectorException, IOException {
+        Object result = rpc.call("unboundoxg", address);
         try {
             return (String) result;
         } catch (Exception e) {

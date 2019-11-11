@@ -145,4 +145,8 @@ public class ErrorCode {
     public static String OtherError(String msg) {
         return getError(59000, "Other Error," + msg);
     }
+
+    public static String BalancesArrayError(String msg) {
+        return getError(59500, "Balances Array ," + msg);
+    }
 }

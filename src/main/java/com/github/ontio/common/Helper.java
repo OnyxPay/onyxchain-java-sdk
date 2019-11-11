@@ -19,15 +19,13 @@
 
 package com.github.ontio.common;
 
-import com.github.ontio.crypto.Digest;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.github.ontio.sdk.exception.SDKException;
 
 import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Byte Handle Helper
@@ -118,6 +116,50 @@ public class Helper {
             sb.append(Integer.toHexString(v & 0x0f));
         }
         return sb.toString();
+    }
+
+    private static String getBalanceFromHex(String hex) {
+        if(!hex.equals("")) {
+            return Helper.BigIntFromNeoBytes(Helper.hexToBytes(hex)).toString();
+        }
+        return BigInteger.ZERO.toString();
+    }
+
+    private static List<String> parseNestedBalanceArray(Object object) {
+        List<String> balanceArray = new ArrayList<String>();
+
+        JSONArray balanceJsonArray = (JSONArray) object;
+        String hexSymbol = (String) balanceJsonArray.get(0);
+        String hexBalance = (String) balanceJsonArray.get(1);
+
+        balanceArray.add(hexSymbol);
+        balanceArray.add(getBalanceFromHex(hexBalance));
+
+        return balanceArray;
+    }
+
+    public static String parseBalancesArray(JSONArray jsonArray) throws SDKException {
+        List<List<String>> balancesArray = new ArrayList<List<String>>();
+        int currentBalanceIndex = 0;
+
+        for (Object object : jsonArray) {
+            List<String> balanceArray = new ArrayList<String>();
+
+            if (object instanceof JSONArray) {
+                balanceArray = parseNestedBalanceArray(object);
+            } else if (object instanceof String){
+                balanceArray.add(String.format("%02x", currentBalanceIndex));
+                balanceArray.add(getBalanceFromHex((String) object));
+            } else {
+                String message = "An unsupported object type: " + object.getClass().getSimpleName();
+                throw new SDKException(ErrorCode.BalancesArrayError(message));
+            }
+
+            balancesArray.add(balanceArray);
+            currentBalanceIndex++;
+        }
+
+        return JSON.toJSONString(balancesArray);
     }
 
     public static String reverse(String value) {

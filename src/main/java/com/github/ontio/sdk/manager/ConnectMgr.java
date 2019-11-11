@@ -262,6 +262,11 @@ public class ConnectMgr {
     public String getGrantOng(String address) throws ConnectorException, IOException {
         return connector.getGrantOng(address);
     }
+
+    public String getUnBoundOxg(String address) throws ConnectorException, IOException {
+        return connector.getUnBoundOxg(address);
+    }
+
     public int getNetworkId() throws ConnectorException, IOException {
         return connector.getNetworkId();
     }

@@ -332,6 +332,17 @@ public class WebsocketClient extends AbstractConnector {
     }
 
     @Override
+    public String getUnBoundOxg(String address) throws ConnectorException, IOException {
+        Map map = new HashMap<>();
+        map.put("Action", "unboundoxg");
+        map.put("Version", "1.0.0");
+        map.put("Id", generateReqId());
+        map.put("Addr", address);
+        mWebSocket.send(JSON.toJSONString(map));
+        return "";
+    }
+
+    @Override
     public int getNetworkId() throws ConnectorException, IOException {
         Map map = new HashMap<>();
         map.put("Action", "getnetworkid");

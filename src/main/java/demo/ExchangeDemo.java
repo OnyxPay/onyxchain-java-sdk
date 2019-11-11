@@ -22,9 +22,9 @@ class UserAcct{
 }
 
 class Balance{
-    @JSONField(name="ont")
+    @JSONField(name="onyx")
     String ont;
-    @JSONField(name="ong")
+    @JSONField(name="oxg")
     String ong;
 
     public String getOnt() {

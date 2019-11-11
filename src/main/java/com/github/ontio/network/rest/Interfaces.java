@@ -233,6 +233,7 @@ class Interfaces {
             throw new RestfulException(ErrorCode.ConnectUrlErr + url, e);
         }
     }
+
     public String getVersion() throws RestfulException {
         Map<String, String> params = new HashMap<String, String>();
         try {
@@ -245,6 +246,14 @@ class Interfaces {
         Map<String, String> params = new HashMap<String, String>();
         try {
             return http.get(url + UrlConsts.Url_get_grant_ong+ "/" +address, params);
+        } catch (Exception e) {
+            throw new RestfulException(ErrorCode.ConnectUrlErr + url, e);
+        }
+    }
+    public String getUnBoundOxg(String address) throws RestfulException {
+        Map<String, String> params = new HashMap<String, String>();
+        try {
+            return http.get(url + UrlConsts.Url_get_unbound_oxg + "/" + address, params);
         } catch (Exception e) {
             throw new RestfulException(ErrorCode.ConnectUrlErr + url, e);
         }
